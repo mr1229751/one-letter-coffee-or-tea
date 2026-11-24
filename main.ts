@@ -1,20 +1,19 @@
-// One Letter: Coffee or Tea — make.fun entry.
-// Writes the entry text to /output/entry.txt.
-// Node standard library only; deterministic: same bytes on every run.
+// One Letter: Coffee or Tea — entry program for make.fun.
+// Emits one fixed single-letter vote to the output directory.
+// Uses only the Node standard library and behaves identically on every run.
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const LINE =
-  "A";
+const ENTRY_LETTER = "A";
 
-// Gate guard: the sealed scorer accepts exactly one character,
-// and the brief allows only two of them: A (coffee) or B (tea).
-// A carriage return or newline would break the one-entry promise,
-// so reject them rather than trusting the length check alone.
-if (LINE !== "A" && LINE !== "B") {
-  throw new Error("entry must be exactly one letter: A (coffee) or B (tea)");
+function assertEntryIsValid(letter: string): void {
+  if (letter !== "A" && letter !== "B") {
+    throw new Error("Entry must be exactly one letter: A for coffee or B for tea.");
+  }
 }
 
-const outDir = process.env.MAKEFUN_OUTPUT_DIR || "/output";
-mkdirSync(outDir, { recursive: true });
-writeFileSync(join(outDir, "entry.txt"), LINE, "utf8");
+assertEntryIsValid(ENTRY_LETTER);
+
+const outputDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+mkdirSync(outputDir, { recursive: true });
+writeFileSync(join(outputDir, "entry.txt"), ENTRY_LETTER, "utf8");
