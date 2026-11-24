@@ -7,7 +7,8 @@ import { join } from "node:path";
 const LINE =
   "A";
 
-// Gate guard: the sealed scorer only accepts exactly one character: A for coffee or B for tea.
+// Gate guard: the sealed scorer accepts exactly one character,
+// and the brief allows only two of them: A (coffee) or B (tea).
 // A carriage return or newline would break the one-entry promise,
 // so reject them rather than trusting the length check alone.
 if (LINE !== "A" && LINE !== "B") {
