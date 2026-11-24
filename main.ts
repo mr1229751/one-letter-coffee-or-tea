@@ -7,6 +7,8 @@ import { join } from "node:path";
 const ENTRY_LETTER = "A";
 
 function assertEntryIsValid(letter: string): void {
+  // Strict equality against the two allowed votes only: anything else,
+  // including lowercase or multi-character strings, fails the gate.
   if (letter !== "A" && letter !== "B") {
     throw new Error("Entry must be exactly one letter: A for coffee or B for tea.");
   }
